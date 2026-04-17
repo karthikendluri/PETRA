@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PETRA — Simple Pet Care</title>
+    <title>Rover — Simple Pet Care</title>
     <style>
         * {
             margin: 0;
@@ -11,16 +11,16 @@
             box-sizing: border-box;
         }
 
-        /* Claude-inspired clean colors */
+        /* Clean, simple colors */
         :root {
-            --bg: #f9f9f9;
+            --bg: #fafafa;
             --surface: #ffffff;
             --text: #1a1a1a;
             --text-light: #6b6b6b;
-            --primary: #b86f52;
-            --primary-light: #d48d6a;
-            --border: #e5e5e5;
-            --success: #2e7d64;
+            --primary: #2e7d64;
+            --primary-light: #3a9b7d;
+            --border: #e0e0e0;
+            --error: #d9534f;
         }
 
         body.dark {
@@ -38,17 +38,17 @@
             line-height: 1.5;
         }
 
-        /* Simple container */
+        /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 20px;
         }
 
         /* Header */
         header {
-            border-bottom: 1px solid var(--border);
             background: var(--surface);
+            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 10;
@@ -58,8 +58,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 24px;
-            max-width: 1200px;
+            padding: 16px 20px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
@@ -91,7 +91,7 @@
         .theme-btn {
             background: var(--surface);
             border: 1px solid var(--border);
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.8rem;
@@ -125,123 +125,123 @@
             color: white;
         }
 
-        /* Hero section */
+        /* Hero */
         .hero {
-            padding: 60px 0;
+            padding: 50px 0;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 16px;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
             font-weight: 600;
         }
 
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--text-light);
-            max-width: 550px;
-            margin: 0 auto 24px;
+            max-width: 500px;
+            margin: 0 auto 20px;
         }
 
-        /* Real-time clock (simple) */
+        /* Real-time clock */
         .clock {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 8px 16px;
+            border-radius: 10px;
+            padding: 6px 14px;
             display: inline-block;
             font-family: monospace;
-            font-size: 0.9rem;
-            margin-bottom: 24px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
         }
 
-        /* Stats row */
+        /* Stats */
         .stats {
             display: flex;
             justify-content: center;
-            gap: 48px;
-            margin: 40px 0;
+            gap: 40px;
+            margin: 30px 0;
             flex-wrap: wrap;
         }
 
         .stat-card {
             text-align: center;
             background: var(--surface);
-            padding: 20px 32px;
-            border-radius: 16px;
+            padding: 16px 28px;
+            border-radius: 14px;
             border: 1px solid var(--border);
-            min-width: 140px;
+            min-width: 120px;
         }
 
         .stat-number {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary);
         }
 
         .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-light);
             margin-top: 4px;
         }
 
-        /* Section titles */
+        /* Section */
         .section-title {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 600;
-            margin: 48px 0 24px;
+            margin: 40px 0 20px;
             text-align: center;
         }
 
         /* Pet grid */
         .pets-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin: 24px 0;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
         }
 
         .pet-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
             transition: transform 0.2s;
         }
 
         .pet-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
         }
 
         .pet-emoji {
-            font-size: 4rem;
+            font-size: 3.5rem;
             text-align: center;
-            padding: 32px;
+            padding: 24px;
             background: var(--bg);
             border-bottom: 1px solid var(--border);
         }
 
         .pet-info {
-            padding: 20px;
+            padding: 16px;
         }
 
         .pet-name {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .pet-desc {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-light);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .pet-price {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .book-btn {
@@ -249,39 +249,39 @@
             background: var(--primary);
             color: white;
             border: none;
-            padding: 10px;
+            padding: 8px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.85rem;
         }
 
-        /* Features (simple cards) */
+        /* Features */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            margin: 48px 0;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
         }
 
         .feature {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 14px;
+            padding: 20px;
             text-align: center;
         }
 
         .feature h3 {
-            font-size: 1rem;
-            margin: 12px 0 8px;
+            font-size: 0.95rem;
+            margin: 10px 0 6px;
         }
 
         .feature p {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-light);
         }
 
-        /* Modal (simple) */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -297,15 +297,15 @@
 
         .modal-content {
             background: var(--surface);
-            padding: 28px;
-            border-radius: 20px;
-            max-width: 400px;
+            padding: 24px;
+            border-radius: 18px;
+            max-width: 380px;
             width: 90%;
         }
 
         .modal-content h2 {
-            font-size: 1.3rem;
-            margin-bottom: 16px;
+            font-size: 1.2rem;
+            margin-bottom: 14px;
         }
 
         .modal-content input,
@@ -332,25 +332,20 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 32px 0;
+            padding: 28px 0;
             border-top: 1px solid var(--border);
-            margin-top: 48px;
-            font-size: 0.8rem;
+            margin-top: 40px;
+            font-size: 0.75rem;
             color: var(--text-light);
         }
 
-        /* Utility */
-        .text-center {
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
+        @media (max-width: 700px) {
             .header-inner {
                 flex-direction: column;
-                gap: 12px;
+                gap: 10px;
             }
             .hero h1 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
             .stats {
                 gap: 16px;
@@ -362,7 +357,7 @@
 
 <header>
     <div class="header-inner">
-        <div class="logo">🪨 <span>PETRA</span></div>
+        <div class="logo">🐕 <span>Rover</span></div>
         <div class="nav">
             <a href="#">Home</a>
             <a href="#">Pets</a>
@@ -374,21 +369,19 @@
 </header>
 
 <main class="container">
-    <!-- Hero -->
     <div class="hero">
         <div class="clock">
             🕐 <span id="liveClock">--:--:--</span>
         </div>
-        <h1>Simple pet care.<br>Rock-solid love.</h1>
-        <p>PETRA helps you book, track, and care for your pets — no clutter, no confusion.</p>
-        <button class="btn" onclick="scrollToPets()">Browse pets →</button>
+        <h1>Pet care, simplified.</h1>
+        <p>Book walks, grooming, and daycare — all in one place.</p>
+        <button class="btn" onclick="scrollToPets()">Find a pet →</button>
     </div>
 
-    <!-- Stats -->
     <div class="stats">
         <div class="stat-card">
             <div class="stat-number" id="petCount">0</div>
-            <div class="stat-label">happy pets</div>
+            <div class="stat-label">pets cared for</div>
         </div>
         <div class="stat-card">
             <div class="stat-number" id="bookingCount">0</div>
@@ -400,51 +393,48 @@
         </div>
     </div>
 
-    <!-- Pet listing -->
-    <h2 class="section-title">🐾 Available pets</h2>
+    <h2 class="section-title">🐾 Our pets</h2>
     <div class="pets-grid" id="petsGrid"></div>
 
-    <!-- Features -->
     <div class="features">
         <div class="feature">
-            <div>🪨</div>
-            <h3>Simple booking</h3>
-            <p>Book a walk or grooming in under 30 seconds</p>
+            <div>🐕</div>
+            <h3>Dog walking</h3>
+            <p>30-min walks with live updates</p>
         </div>
         <div class="feature">
-            <div>💎</div>
-            <h3>Petra Gems</h3>
-            <p>Earn rewards every time you book</p>
+            <div>✂️</div>
+            <h3>Grooming</h3>
+            <p>Bath, brush, nail trim</p>
         </div>
         <div class="feature">
-            <div>📱</div>
-            <h3>Real-time updates</h3>
-            <p>Live status for every session</p>
+            <div>🏠</div>
+            <h3>Daycare</h3>
+            <p>Full-day care while you work</p>
         </div>
         <div class="feature">
             <div>❤️</div>
             <h3>Vet approved</h3>
-            <p>Trusted by 1,000+ pet parents</p>
+            <p>Trusted by 1,000+ owners</p>
         </div>
     </div>
 </main>
 
 <footer>
-    <p>🪨 PETRA — Simple, honest pet care for everyone.</p>
-    <p style="margin-top: 8px;">© 2026 • Built with love</p>
+    <p>🐾 Rover — Simple, honest pet care for everyone.</p>
+    <p style="margin-top: 6px;">© 2026 • Built with love</p>
 </footer>
 
-<!-- Modal -->
 <div id="bookingModal" class="modal">
     <div class="modal-content">
         <h2>Book a session</h2>
-        <p id="modalPetName" style="color: var(--primary);"></p>
+        <p id="modalPetName" style="color: var(--primary); font-weight: 500;"></p>
         <input type="text" id="userName" placeholder="Your name">
         <input type="date" id="bookingDate">
         <select id="serviceType">
-            <option>🐕 Walk (30 min)</option>
-            <option>✂️ Grooming (1 hr)</option>
-            <option>🏠 Daycare (full day)</option>
+            <option>🚶 Walk (30 min) — $20</option>
+            <option>✂️ Grooming (1 hr) — $45</option>
+            <option>🏠 Daycare (full day) — $35</option>
         </select>
         <div class="modal-buttons">
             <button class="btn" onclick="confirmBooking()">Confirm</button>
@@ -454,7 +444,7 @@
 </div>
 
 <script>
-    // Simple real-time clock
+    // Real-time clock
     function updateClock() {
         const now = new Date();
         document.getElementById('liveClock').innerHTML = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -462,10 +452,10 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Counter animation (simple)
+    // Counter animation
     function animateCounter(element, target) {
         let current = 0;
-        const step = Math.ceil(target / 50);
+        const step = Math.ceil(target / 40);
         const timer = setInterval(() => {
             current += step;
             if (current >= target) {
@@ -479,10 +469,10 @@
 
     // Pet data
     const pets = [
-        { name: "Rocky", emoji: "🐕", desc: "Friendly, energetic, loves walks", price: "25 Gems" },
-        { name: "Luna", emoji: "🐱", desc: "Calm cuddler, great with kids", price: "20 Gems" },
-        { name: "Max", emoji: "🐕‍🦺", desc: "Trained therapy dog", price: "35 Gems" },
-        { name: "Bella", emoji: "🐰", desc: "Small, gentle, perfect for apartments", price: "18 Gems" }
+        { name: "Buddy", emoji: "🐕", desc: "Golden Retriever • Friendly & playful", price: "$20 / walk" },
+        { name: "Luna", emoji: "🐱", desc: "Calm cat • Loves naps & cuddles", price: "$18 / visit" },
+        { name: "Max", emoji: "🐕‍🦺", desc: "Labrador • High energy, loves fetch", price: "$22 / walk" },
+        { name: "Bella", emoji: "🐩", desc: "Poodle • Gentle & well-trained", price: "$25 / grooming" }
     ];
 
     function renderPets() {
@@ -502,7 +492,7 @@
     renderPets();
 
     let currentPet = '';
-    let totalBookings = 89;
+    let totalBookings = 47;
 
     function openBooking(petName) {
         currentPet = petName;
@@ -515,17 +505,23 @@
     }
 
     function confirmBooking() {
-        const name = document.getElementById('userName').value;
+        const name = document.getElementById('userName').value.trim();
         const date = document.getElementById('bookingDate').value;
+        const service = document.getElementById('serviceType').value;
         
-        if (!name || !date) {
-            alert('Please enter your name and select a date.');
+        if (!name) {
+            alert("Please enter your name.");
+            return;
+        }
+        if (!date) {
+            alert("Please select a date.");
             return;
         }
         
         totalBookings++;
         document.getElementById('bookingCount').innerText = totalBookings;
-        alert(`✅ Done! ${name}, you've booked ${currentPet} on ${date}. You earned 5 Petra Gems!`);
+        
+        alert(`✅ All set, ${name}!\n\nYou booked ${currentPet} on ${date}\nService: ${service}\n\nWe'll send a confirmation to your email.`);
         
         closeModal();
         document.getElementById('userName').value = '';
@@ -544,8 +540,8 @@
 
     // Start counters
     animateCounter(document.getElementById('petCount'), 1247);
-    animateCounter(document.getElementById('bookingCount'), 89);
-    animateCounter(document.getElementById('citiesCount'), 32);
+    animateCounter(document.getElementById('bookingCount'), 47);
+    animateCounter(document.getElementById('citiesCount'), 28);
 </script>
 </body>
 </html>
