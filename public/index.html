@@ -3,293 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional pet care services. Dog walking, pet sitting, grooming, and daycare.">
-    <title>PETRA | Professional Pet Care Services</title>
+    <title>PETRA | Live Professional Pet Care</title>
     <style>
-        /* CSS Variables & Reset */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #b86f52;
             --primary-dark: #9a5a40;
-            --secondary: #6c9ebf;
             --text: #222222;
             --text-light: #717171;
             --bg: #ffffff;
             --bg-gray: #f7f7f7;
             --border: #dddddd;
-            --shadow: 0 2px 8px rgba(0,0,0,0.08);
-            --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            color: var(--text);
-            line-height: 1.5;
-            scroll-behavior: smooth;
-        }
-
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { color: var(--text); background: var(--bg); line-height: 1.6; scroll-behavior: smooth; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
         /* Header */
-        .site-header {
-            border-bottom: 1px solid var(--border);
-            background: var(--bg);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        header { 
+            background: white; border-bottom: 1px solid var(--border); 
+            padding: 15px 0; position: sticky; top: 0; z-index: 1000; 
         }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
+        .header-flex { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 800; text-decoration: none; color: var(--primary); }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 14px; }
+        
+        .btn-auth { 
+            padding: 8px 20px; border-radius: 20px; cursor: pointer; border: 1px solid var(--border);
+            font-size: 14px; transition: 0.3s;
         }
+        .btn-primary { background: var(--primary); color: white; border: none; }
+        .btn-primary:hover { background: var(--primary-dark); }
 
-        .logo { font-size: 28px; font-weight: 800; text-decoration: none; display: flex; align-items: center; }
-        .logo .petra { color: var(--primary); }
+        /* Hero & Search */
+        .hero { background: #fffcfb; padding: 60px 0; text-align: center; }
+        .hero h1 { font-size: 42px; margin-bottom: 15px; }
+        .hero span { color: var(--primary); }
 
-        .nav-links { display: flex; gap: 32px; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--text); font-size: 15px; font-weight: 500; }
-        .nav-links a:hover { color: var(--primary); }
+        .search-container {
+            max-width: 800px; margin: -40px auto 40px; background: white;
+            padding: 25px; border-radius: 15px; box-shadow: var(--shadow);
+            display: grid; grid-template-columns: 1fr 1fr auto; gap: 15px;
+            position: relative; z-index: 10;
+        }
+        .input-group { display: flex; flex-direction: column; text-align: left; }
+        .input-group label { font-size: 12px; font-weight: bold; margin-bottom: 5px; color: var(--text-light); }
+        .input-group input { padding: 12px; border: 1px solid var(--border); border-radius: 8px; }
 
-        .btn-login { background: transparent; border: 1px solid var(--border); padding: 10px 24px; border-radius: 30px; cursor: pointer; }
-        .btn-signup { background: var(--primary); color: white; border: none; padding: 10px 24px; border-radius: 30px; cursor: pointer; font-weight: 500; transition: 0.2s; }
-        .btn-signup:hover { background: var(--primary-dark); }
-
-        /* Hero */
-        .hero { background: linear-gradient(135deg, #b86f5208 0%, #6c9ebf08 100%); padding: 80px 0; }
-        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .hero h1 { font-size: 56px; line-height: 1.1; margin-bottom: 20px; }
-        .hero h1 span { color: var(--primary); }
-        .hero p { font-size: 20px; color: var(--text-light); margin-bottom: 30px; }
-        .hero-image img { width: 100%; border-radius: 24px; height: 450px; object-fit: cover; box-shadow: var(--shadow-hover); }
-
-        /* Search */
-        .search-section { margin-top: -50px; position: relative; z-index: 10; }
-        .search-card { background: var(--bg); border-radius: 20px; box-shadow: var(--shadow-hover); padding: 25px; border: 1px solid var(--border); }
-        .search-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 20px; align-items: end; }
-        .form-group { display: flex; flex-direction: column; gap: 8px; }
-        .form-group label { font-weight: 600; font-size: 14px; }
-        .form-group input { padding: 14px; border: 1px solid var(--border); border-radius: 12px; font-size: 16px; }
-
-        /* Cards */
-        .sitters-section { padding: 80px 0; }
-        .section-title { font-size: 32px; text-align: center; margin-bottom: 40px; }
-        .sitters-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-        .sitter-card { border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: transform 0.3s; }
-        .sitter-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
-        .sitter-photo img { width: 100%; height: 220px; object-fit: cover; }
-        .sitter-info { padding: 20px; }
-        .sitter-price { font-weight: bold; color: var(--primary); font-size: 18px; margin: 10px 0; }
+        /* Grid */
+        .results-section { padding: 40px 0; min-height: 400px; }
+        .grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px; margin-top: 30px; 
+        }
         
-        /* Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: white; padding: 40px; border-radius: 24px; width: 100%; max-width: 400px; position: relative; }
-        .close-modal { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 24px; }
-        .auth-form { display: none; }
-        .auth-form.active { display: block; }
+        .card { 
+            border: 1px solid var(--border); border-radius: 12px; overflow: hidden; 
+            transition: transform 0.2s; background: white;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-body { padding: 15px; }
+        .card-price { color: var(--primary); font-weight: bold; font-size: 18px; }
+        .rating { color: #f39c12; font-size: 14px; }
 
-        .user-menu { display: flex; align-items: center; gap: 12px; }
-        .user-avatar { width: 35px; height: 35px; background: var(--primary); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        /* Modals */
+        .modal { 
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); 
+            justify-content: center; align-items: center; z-index: 2000;
+        }
+        .modal-content { background: white; padding: 30px; border-radius: 15px; width: 100%; max-width: 400px; }
         
-        footer { background: var(--bg-gray); padding: 40px 0; text-align: center; margin-top: 50px; border-top: 1px solid var(--border); }
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid #f3f3f3; border-top: 4px solid var(--primary);
+            border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<header class="site-header">
-    <div class="container">
-        <div class="header-content">
-            <a href="#" class="logo"><span class="petra">PETRA</span><span>🪨</span></a>
-            <nav class="nav-links">
-                <a href="#sitters-anchor">Find sitters</a>
-                <a href="#hero-anchor">About</a>
-                <div id="authSection">
-                    <button class="btn-login" onclick="openAuthModal('login')">Log in</button>
-                    <button class="btn-signup" onclick="openAuthModal('signup')">Sign up</button>
-                </div>
-                <div id="userSection" style="display: none;" class="user-menu">
-                    <div class="user-avatar" id="userAvatar">U</div>
-                    <span id="userDisplayName">User</span>
-                    <button class="logout-btn" onclick="logout()" style="cursor:pointer; border:none; background:none; color:red; font-size:12px;">Logout</button>
-                </div>
-            </nav>
+<header>
+    <div class="container header-flex">
+        <a href="#" class="logo">PETRA 🪨</a>
+        <div class="nav-links">
+            <a href="#results">Find Sitters</a>
+            <div id="auth-ui">
+                <button class="btn-auth" onclick="toggleModal('authModal')">Login</button>
+            </div>
         </div>
     </div>
 </header>
 
-<main>
-    <section class="hero" id="hero-anchor">
-        <div class="container">
-            <div class="hero-grid">
-                <div>
-                    <h1>Loving pet care <br>when <span>you're away</span></h1>
-                    <p>Connect with trusted pet sitters in your neighborhood. Your pets deserve the best care.</p>
-                    <a href="#sitters-anchor" class="btn-signup" style="text-decoration: none; display: inline-block;">Browse Sitters →</a>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=800" alt="Happy dog">
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="hero">
+    <h1>Loving pet care <span>anytime.</span></h1>
+    <p>Real-time listings from trusted local sitters.</p>
+</section>
 
-    <section class="search-section">
-        <div class="container">
-            <div class="search-card">
-                <div class="search-form">
-                    <div class="form-group">
-                        <label>📍 Location</label>
-                        <input type="text" id="locationInput" placeholder="Enter city (e.g. Austin)">
-                    </div>
-                    <div class="form-group">
-                        <label>📅 Service Type</label>
-                        <input type="text" id="serviceInput" placeholder="Walking, Sitting...">
-                    </div>
-                    <button class="btn-signup" style="padding: 15px 40px;" onclick="handleSearch()">Search</button>
-                </div>
-            </div>
+<div class="container">
+    <div class="search-container">
+        <div class="input-group">
+            <label>LOCATION</label>
+            <input type="text" id="locInput" placeholder="Zip code or City (e.g. Austin, TX)">
         </div>
-    </section>
-
-    <section class="sitters-section" id="sitters-anchor">
-        <div class="container">
-            <h2 class="section-title">Verified Sitters</h2>
-            <div class="sitters-grid" id="sittersGrid">
-                </div>
+        <div class="input-group">
+            <label>SERVICE</label>
+            <input type="text" id="servInput" placeholder="Dog Walking, Sitting...">
         </div>
-    </section>
-</main>
-
-<div id="authModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('authModal')">&times;</span>
-        <div id="loginForm" class="auth-form">
-            <h2>Welcome Back</h2>
-            <input type="email" placeholder="Email" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ddd; border-radius:8px;">
-            <button class="btn-signup" style="width:100%" onclick="login('Existing User')">Log In</button>
-        </div>
-        <div id="signupForm" class="auth-form">
-            <h2>Create Account</h2>
-            <input type="text" id="signupName" placeholder="Full Name" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ddd; border-radius:8px;">
-            <button class="btn-signup" style="width:100%" onclick="login()">Sign Up</button>
-        </div>
+        <button class="btn-auth btn-primary" onclick="fetchLiveData()" style="height: 48px; margin-top: 20px;">Search Live</button>
     </div>
 </div>
 
-<div id="bookingModal" class="modal">
+<section class="results-section container" id="results">
+    <h2 id="status-msg">Top-rated sitters near you</h2>
+    <div class="grid" id="sittersGrid">
+        </div>
+</section>
+
+<div id="authModal" class="modal" onclick="closeOnOutsideClick(event)">
     <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('bookingModal')">&times;</span>
-        <h2 id="bookingTitle">Book Sitter</h2>
-        <p id="targetSitter" style="margin-bottom:20px; color:var(--primary); font-weight:bold;"></p>
-        <label>Pick a Date</label>
-        <input type="date" id="bookDate" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ddd; border-radius:8px;">
-        <button class="btn-signup" style="width:100%" onclick="finalizeBooking()">Confirm Booking</button>
+        <h3>Welcome to PETRA</h3>
+        <input type="text" id="userName" placeholder="Your Name" style="width:100%; padding:10px; margin:15px 0; border:1px solid #ddd; border-radius:8px;">
+        <button class="btn-auth btn-primary" style="width:100%" onclick="handleLogin()">Get Started</button>
     </div>
 </div>
-
-<footer>
-    <div class="container">
-        <p>© 2026 PETRA Pet Care, Inc. All rights reserved.</p>
-    </div>
-</footer>
 
 <script>
-    const sitters = [
-        { name: "Sarah Johnson", role: "Dog walker", location: "Austin", rating: 4.9, price: 25, img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" },
-        { name: "Michael Chen", role: "Pet sitter", location: "Austin", rating: 5.0, price: 30, img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400" },
-        { name: "Jessica Davis", role: "Vet tech", location: "Dallas", rating: 4.8, price: 35, img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400" },
-        { name: "David Wilson", role: "Groomer", location: "Houston", rating: 4.9, price: 28, img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" }
-    ];
+    const API_TOKEN = 'apify_api_ejTEau4mggYE7XQLL0I4w7YVlcvB9V491siY';
+    let user = JSON.parse(localStorage.getItem('petra_user'));
 
-    let currentUser = JSON.parse(localStorage.getItem('petra_user'));
-    let activeSitter = null;
-
-    function renderSitters(data = sitters) {
+    async function fetchLiveData() {
+        const loc = document.getElementById('locInput').value;
+        const serv = document.getElementById('servInput').value || 'dog-walking';
         const grid = document.getElementById('sittersGrid');
-        if(data.length === 0) {
-            grid.innerHTML = "<p style='text-align:center; width:100%; grid-column: 1/-1;'>No sitters found in that location.</p>";
-            return;
-        }
-        grid.innerHTML = data.map(s => `
-            <div class="sitter-card">
-                <div class="sitter-photo"><img src="${s.img}" alt="${s.name}"></div>
-                <div class="sitter-info">
-                    <h3>${s.name}</h3>
-                    <p style="color:gray; font-size:14px;">${s.role} • ${s.location}</p>
-                    <p class="sitter-price">$${s.price}/hr</p>
-                    <button class="btn-signup" style="width:100%" onclick="openBooking('${s.name}')">Book Now</button>
+        const status = document.getElementById('status-msg');
+
+        if (!loc) return alert("Please enter a location (e.g., '78701' or 'Austin')");
+
+        // UI State: Loading
+        status.innerText = `Sniffing out sitters in ${loc}...`;
+        grid.innerHTML = '<div style="grid-column: 1/-1;"><div class="spinner"></div></div>';
+
+        try {
+            const response = await fetch(`https://api.apify.com/v2/acts/apify~rover-scraper/run-sync-get-dataset-items?token=${API_TOKEN}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "location": loc,
+                    "service": serv,
+                    "maxItems": 12
+                })
+            });
+
+            const data = await response.json();
+
+            if (!data || data.length === 0) {
+                status.innerText = "No sitters found in that area.";
+                grid.innerHTML = "";
+                return;
+            }
+
+            status.innerText = `Showing ${data.length} live results for ${loc}`;
+            grid.innerHTML = data.map(item => `
+                <div class="card">
+                    <img src="${item.profilePhoto || 'https://via.placeholder.com/400x250'}" alt="${item.name}">
+                    <div class="card-body">
+                        <div class="rating">★ ${item.rating || '5.0'} (${item.reviewsCount || 0})</div>
+                        <h4 style="margin: 5px 0;">${item.name}</h4>
+                        <p style="font-size:12px; color:gray; height:35px; overflow:hidden;">${item.tagline || 'Verified Rover Sitter'}</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+                            <span class="card-price">$${item.price || '20'}/hr</span>
+                            <button class="btn-auth btn-primary" onclick="window.open('${item.url}', '_blank')">Book</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        `).join('');
+            `).join('');
+
+        } catch (err) {
+            console.error(err);
+            status.innerText = "Connection error. Please check your API limits.";
+            grid.innerHTML = "";
+        }
     }
 
-    // Search logic
-    function handleSearch() {
-        const loc = document.getElementById('locationInput').value.toLowerCase();
-        const serv = document.getElementById('serviceInput').value.toLowerCase();
-        
-        const filtered = sitters.filter(s => 
-            s.location.toLowerCase().includes(loc) && 
-            s.role.toLowerCase().includes(serv)
-        );
-        renderSitters(filtered);
-        document.getElementById('sitters-anchor').scrollIntoView();
-    }
-
-    // Auth logic
-    function openAuthModal(mode) {
-        document.getElementById('authModal').style.display = 'flex';
-        document.getElementById('loginForm').classList.toggle('active', mode === 'login');
-        document.getElementById('signupForm').classList.toggle('active', mode === 'signup');
-    }
-
-    function login(fixedName) {
-        const nameInput = document.getElementById('signupName').value;
-        const user = { name: fixedName || nameInput || "Pet Lover" };
-        localStorage.setItem('petra_user', JSON.stringify(user));
-        currentUser = user;
-        location.reload(); // Refresh to update UI
-    }
-
-    function logout() {
-        localStorage.removeItem('petra_user');
+    // UI Logic
+    function handleLogin() {
+        const name = document.getElementById('userName').value || 'Pet Lover';
+        localStorage.setItem('petra_user', JSON.stringify({name}));
         location.reload();
     }
 
-    // Booking logic
-    function openBooking(sitterName) {
-        if(!currentUser) {
-            alert("Please log in first to book a sitter!");
-            openAuthModal('login');
-            return;
-        }
-        activeSitter = sitterName;
-        document.getElementById('targetSitter').innerText = "Booking with " + sitterName;
-        document.getElementById('bookingModal').style.display = 'flex';
+    function toggleModal(id) {
+        const m = document.getElementById(id);
+        m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
     }
 
-    function finalizeBooking() {
-        const date = document.getElementById('bookDate').value;
-        if(!date) return alert("Please select a date.");
-        
-        alert(`High paw! 🐾 Booking confirmed with ${activeSitter} for ${date}.`);
-        closeModal('bookingModal');
+    function closeOnOutsideClick(e) {
+        if(e.target.className === 'modal') e.target.style.display = 'none';
     }
 
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-    // Init
     window.onload = () => {
-        renderSitters();
-        if(currentUser) {
-            document.getElementById('authSection').style.display = 'none';
-            document.getElementById('userSection').style.display = 'flex';
-            document.getElementById('userDisplayName').innerText = currentUser.name;
-            document.getElementById('userAvatar').innerText = currentUser.name[0];
+        if(user) {
+            document.getElementById('auth-ui').innerHTML = `<span>Hi, ${user.name}</span>`;
         }
-    };
+    }
 </script>
 
 </body>
