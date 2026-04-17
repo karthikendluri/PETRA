@@ -6,7 +6,7 @@
     <meta name="description" content="Professional pet care services. Dog walking, pet sitting, grooming, and daycare.">
     <title>PETRA | Professional Pet Care Services</title>
     <style>
-        /* CSS Variables & Reset */
+        /* Reset & Base Styles */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #b86f52;
@@ -30,7 +30,7 @@
 
         .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
 
-        /* Header */
+        /* Header Navigation */
         .site-header {
             border-bottom: 1px solid var(--border);
             background: var(--bg);
@@ -53,11 +53,12 @@
         .nav-links a { text-decoration: none; color: var(--text); font-size: 15px; font-weight: 500; }
         .nav-links a:hover { color: var(--primary); }
 
+        /* Buttons */
         .btn-login { background: transparent; border: 1px solid var(--border); padding: 10px 24px; border-radius: 30px; cursor: pointer; }
         .btn-signup { background: var(--primary); color: white; border: none; padding: 10px 24px; border-radius: 30px; cursor: pointer; font-weight: 500; transition: 0.2s; }
         .btn-signup:hover { background: var(--primary-dark); }
 
-        /* Hero */
+        /* Hero Section */
         .hero { background: linear-gradient(135deg, #b86f5208 0%, #6c9ebf08 100%); padding: 80px 0; }
         .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
         .hero h1 { font-size: 56px; line-height: 1.1; margin-bottom: 20px; }
@@ -65,7 +66,7 @@
         .hero p { font-size: 20px; color: var(--text-light); margin-bottom: 30px; }
         .hero-image img { width: 100%; border-radius: 24px; height: 450px; object-fit: cover; box-shadow: var(--shadow-hover); }
 
-        /* Search */
+        /* Search Bar */
         .search-section { margin-top: -50px; position: relative; z-index: 10; }
         .search-card { background: var(--bg); border-radius: 20px; box-shadow: var(--shadow-hover); padding: 25px; border: 1px solid var(--border); }
         .search-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 20px; align-items: end; }
@@ -73,7 +74,7 @@
         .form-group label { font-weight: 600; font-size: 14px; }
         .form-group input { padding: 14px; border: 1px solid var(--border); border-radius: 12px; font-size: 16px; }
 
-        /* Cards */
+        /* Sitter Cards Grid */
         .sitters-section { padding: 80px 0; }
         .section-title { font-size: 32px; text-align: center; margin-bottom: 10px; }
         .sitters-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-top: 40px;}
@@ -83,7 +84,7 @@
         .sitter-info { padding: 20px; }
         .sitter-price { font-weight: bold; color: var(--primary); font-size: 18px; margin: 10px 0; }
         
-        /* Modal */
+        /* Modal & Auth Styles */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 1000; }
         .modal-content { background: white; padding: 40px; border-radius: 24px; width: 100%; max-width: 400px; position: relative; }
         .close-modal { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 24px; }
@@ -93,7 +94,7 @@
         .user-menu { display: flex; align-items: center; gap: 12px; }
         .user-avatar { width: 35px; height: 35px; background: var(--primary); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
         
-        /* Loading Spinner */
+        /* UI Elements */
         .spinner { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
@@ -189,10 +190,10 @@
 </footer>
 
 <script>
-    const APIFY_TOKEN = 'apify_api_ejTEau4mggYE7XQLL0I4w7YVlcvB9V491siY';
+    // NEW TOKEN APPLIED
+    const APIFY_TOKEN = 'apify_api_xfvy3dXAdY2gFLZ6pJ8LtErKSEQS4326ZcA3';
     let currentUser = JSON.parse(localStorage.getItem('petra_user'));
 
-    // Updated handleSearch to use Apify Rover Scraper
     async function handleSearch() {
         const loc = document.getElementById('locationInput').value;
         const serv = document.getElementById('serviceInput').value || 'dog-walking';
@@ -201,12 +202,13 @@
 
         if(!loc) return alert("Please enter a location (e.g. Austin, TX)");
 
-        // UI Feedback: Loading
-        header.innerText = `Searching Rover for sitters in ${loc}...`;
+        // 1. Show Spinner & UI Feedback
+        header.innerText = `Searching for sitters in ${loc}...`;
         grid.innerHTML = '<div style="grid-column: 1/-1;"><div class="spinner"></div></div>';
         document.getElementById('sitters-anchor').scrollIntoView();
 
         try {
+            // 2. Fetch from Apify Actor
             const response = await fetch(`https://api.apify.com/v2/acts/apify~rover-scraper/run-sync-get-dataset-items?token=${APIFY_TOKEN}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -217,14 +219,23 @@
                 })
             });
 
+            // Handle API Errors (401, 429, etc)
+            if (!response.ok) {
+                const errData = await response.json();
+                console.error("Apify API Error:", errData);
+                throw new Error(errData.message || 'API request failed');
+            }
+
             const results = await response.json();
 
+            // 3. Handle Empty Results
             if (!results || results.length === 0) {
-                header.innerText = "No sitters found. Try a broader city name.";
+                header.innerText = "No sitters found. Try a different city or service.";
                 grid.innerHTML = "";
                 return;
             }
 
+            // 4. Render Live Data
             header.innerText = `Top-rated sitters in ${loc}`;
             grid.innerHTML = results.map(s => `
                 <div class="sitter-card">
@@ -242,13 +253,13 @@
             `).join('');
 
         } catch (error) {
-            console.error("API Error:", error);
-            header.innerText = "Search failed. Check your API token limits.";
-            grid.innerHTML = "";
+            console.error("Development Log:", error);
+            header.innerText = "System error: " + error.message;
+            grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center;">Could not connect to live data. Check console for details.</p>`;
         }
     }
 
-    // Auth logic
+    // Modal & Auth Management
     function openAuthModal(mode) {
         document.getElementById('authModal').style.display = 'flex';
         document.getElementById('loginForm').classList.toggle('active', mode === 'login');
