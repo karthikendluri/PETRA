@@ -3,442 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional pet care services. Dog walking, pet sitting, grooming, and daycare. Trusted by 10,000+ pet parents since 2019.">
-    <title>PETRA | Professional Pet Care Services</title>
+    <title>PETRA | Professional Pet Care</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         :root {
             --primary: #b86f52;
             --primary-dark: #9a5a40;
-            --secondary: #6c9ebf;
             --text: #222222;
-            --text-light: #717171;
             --bg: #ffffff;
-            --bg-gray: #f7f7f7;
             --border: #dddddd;
-            --shadow: 0 2px 8px rgba(0,0,0,0.08);
-            --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            color: var(--text);
-            line-height: 1.5;
-            background: var(--bg);
+        body { font-family: sans-serif; margin: 0; color: var(--text); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header Fixes */
+        header { display: flex; justify-content: space-between; padding: 20px; border-bottom: 1px solid var(--border); }
+        .logo { font-weight: bold; font-size: 24px; text-decoration: none; color: inherit; }
+        
+        /* Grid Layout */
+        .sitters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px 0;
         }
 
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        /* Header */
-        .site-header {
-            border-bottom: 1px solid var(--border);
-            background: var(--bg);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            text-decoration: none;
-        }
-
-        .logo .petra { color: var(--primary); }
-        .logo .rock { color: var(--text); }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text);
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .nav-links a:hover { color: var(--primary); }
-
-        .btn-login {
-            background: transparent;
+        .sitter-card {
             border: 1px solid var(--border);
-            padding: 10px 24px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 500;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s;
         }
 
-        .btn-signup {
+        .sitter-card:hover { transform: translateY(-5px); }
+
+        .book-btn {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 10px 24px;
-            border-radius: 30px;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            font-weight: 500;
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
+            width: 100%;
+            margin-top: 10px;
             font-weight: bold;
         }
 
-        .logout-btn {
-            background: none;
-            border: none;
-            color: var(--text-light);
-            cursor: pointer;
-            font-size: 14px;
-        }
+        .book-btn:active { background: var(--primary-dark); }
 
-        /* Hero */
-        .hero {
-            background: linear-gradient(135deg, #b86f5208 0%, #6c9ebf08 100%);
-            padding: 60px 0;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .hero h1 { font-size: 48px; line-height: 1.2; margin-bottom: 20px; }
-        .hero h1 span { color: var(--primary); }
-        .hero p { font-size: 18px; color: var(--text-light); margin-bottom: 30px; }
-        .hero-image img { width: 100%; border-radius: 24px; height: 400px; object-fit: cover; }
-
-        /* Search Bar */
-        .search-section { margin-top: -40px; margin-bottom: 60px; }
-        .search-card {
-            background: var(--bg);
-            border-radius: 32px;
-            box-shadow: var(--shadow-hover);
-            padding: 32px;
-            border: 1px solid var(--border);
-        }
-
-        .search-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr auto;
-            gap: 20px;
-            align-items: end;
-        }
-
-        .form-group { display: flex; flex-direction: column; gap: 8px; }
-        .form-group input { padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; }
-        .search-btn { background: var(--primary); color: white; border: none; padding: 14px 32px; border-radius: 12px; cursor: pointer; }
-
-        /* Services & Sitters Grid */
-        .services-section, .sitters-section { padding: 60px 0; }
-        .section-title { font-size: 32px; text-align: center; margin-bottom: 16px; }
-        .section-subtitle { text-align: center; color: var(--text-light); margin-bottom: 48px; }
-
-        .services-grid, .sitters-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-        }
-
-        .service-card, .sitter-card {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .sitter-card { padding: 0; overflow: hidden; text-align: left; }
-        .sitter-photo img { width: 100%; height: 200px; object-fit: cover; }
-        .sitter-info { padding: 20px; }
-        .stars { color: #ffb400; margin-bottom: 8px; display: block; }
-        .sitter-price { font-weight: bold; color: var(--primary); margin: 10px 0; }
-
-        .book-sitter-btn {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
-            cursor: pointer;
-        }
-
-        /* Modal */
+        /* Modal Logic */
         .modal {
-            display: none;
-            position: fixed;
+            display: none; 
+            position: fixed; 
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+            background: rgba(0,0,0,0.5);
+            justify-content: center; align-items: center;
         }
-
-        .modal-content {
-            background: var(--bg);
-            border-radius: 24px;
-            padding: 32px;
-            width: 90%;
-            max-width: 450px;
-            position: relative;
-        }
-
-        .auth-form { display: none; }
-        .auth-form.active { display: block; }
-        .auth-tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
-
-        .modal-content input, .modal-content select, .modal-content textarea {
-            width: 100%; padding: 12px; margin: 10px 0;
-            border: 1px solid var(--border); border-radius: 10px;
-        }
-
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; }
-
-        /* Footer */
-        .footer { background: var(--bg-gray); padding: 48px 0; margin-top: 60px; text-align: center; border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
 
-<header class="site-header">
-    <div class="container">
-        <div class="header-content">
-            <a href="#" class="logo"><span class="petra">PETRA</span><span class="rock">🪨</span></a>
-            <div class="nav-links">
-                <a href="#">Find sitters</a>
-                <a href="#">Services</a>
-                <div id="authSection">
-                    <button class="btn-login" onclick="openAuthModal('login')">Log in</button>
-                    <button class="btn-signup" onclick="openAuthModal('signup')">Sign up</button>
-                </div>
-                <div id="userSection" style="display: none;" class="user-menu">
-                    <div class="user-avatar" id="userAvatar">U</div>
-                    <span id="userDisplayName">User</span>
-                    <button class="logout-btn" onclick="logout()">Log out</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<header class="container">
+    <a href="#" class="logo">PETRA 🪨</a>
+    <nav>
+        <span>Welcome, <strong>Karthik</strong></span>
+        <button onclick="logout()" style="margin-left: 10px; cursor: pointer;">Log out</button>
+    </nav>
 </header>
 
-<main>
-    <section class="hero">
-        <div class="container">
-            <div class="hero-grid">
-                <div>
-                    <h1>Loving pet care <br>when <span>you're away</span></h1>
-                    <p>Connect with trusted pet sitters in your neighborhood. Dog walking, pet sitting, and grooming.</p>
-                    <button class="btn-signup" onclick="openAuthModal('signup')">Find a sitter →</button>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600&h=400&fit=crop" alt="Happy dog">
-                </div>
-            </div>
+<div class="container">
+    <h2>Top-rated sitters near you</h2>
+    <div class="sitters-grid" id="sittersGrid">
         </div>
-    </section>
-
-    <section class="search-section">
-        <div class="container">
-            <div class="search-card">
-                <div class="search-form">
-                    <div class="form-group">
-                        <label>📍 Location</label>
-                        <input type="text" placeholder="Austin, TX">
-                    </div>
-                    <div class="form-group">
-                        <label>📅 Dates</label>
-                        <input type="text" placeholder="Select dates">
-                    </div>
-                    <button class="search-btn" onclick="alert('Search feature coming soon!')">Search</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="sitters-section">
-        <div class="container">
-            <h2 class="section-title">Top-rated sitters near you</h2>
-            <p class="section-subtitle">Verified and background-checked</p>
-            <div class="sitters-grid" id="sittersGrid"></div>
-        </div>
-    </section>
-</main>
-
-<footer class="footer">
-    <p>© 2026 PETRA Pet Care, Inc. | Professional Pet Services</p>
-</footer>
-
-<div id="authModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeAuthModal()">&times;</span>
-        <h2 id="modalTitle">Welcome</h2>
-        <div id="loginForm" class="auth-form active">
-            <input type="email" id="loginEmail" placeholder="Email">
-            <input type="password" id="loginPassword" placeholder="Password">
-            <button class="book-sitter-btn" onclick="login()">Log In</button>
-        </div>
-        <div id="signupForm" class="auth-form">
-            <input type="text" id="signupName" placeholder="Full Name">
-            <input type="email" id="signupEmail" placeholder="Email">
-            <button class="book-sitter-btn" onclick="login()">Create Account</button>
-        </div>
-    </div>
 </div>
 
 <div id="bookingModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeBookingModal()">&times;</span>
-        <h2>Book Sitting</h2>
-        <p id="modalSitterName" style="color: var(--primary); font-weight: bold;"></p>
-        <input type="text" id="userFullName" placeholder="Your Name">
-        <input type="date" id="bookingDate">
-        <select id="bookingService">
-            <option value="walking">Dog Walking ($25)</option>
-            <option value="sitting">Pet Sitting ($45)</option>
-        </select>
-        <button class="book-sitter-btn" onclick="confirmBooking()">Confirm My Booking</button>
+    <div style="background: white; padding: 30px; border-radius: 12px; position: relative; max-width: 400px; width: 90%;">
+        <h3 id="modalSitterName">Book Sitter</h3>
+        <p>Confirm booking for 1 hour session?</p>
+        <button class="book-btn" onclick="confirmBooking()">Confirm My Booking</button>
+        <button onclick="closeModal()" style="background: none; border: none; color: gray; cursor: pointer; margin-top: 10px; width: 100%;">Cancel</button>
     </div>
 </div>
 
 <script>
-    // --- Data ---
     const sitters = [
-        { name: "Sarah Johnson", role: "Dog walker", rating: 4.9, reviews: 127, price: 25, img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300" },
-        { name: "Michael Chen", role: "Pet sitter", rating: 5.0, reviews: 89, price: 30, img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300" },
-        { name: "Jessica Davis", role: "Vet tech", rating: 4.8, reviews: 203, price: 35, img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300" },
-        { name: "David Wilson", role: "Groomer", rating: 4.9, reviews: 156, price: 28, img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300" }
+        { name: "Sarah Johnson", role: "Dog walker", rating: 4.9, price: 25 },
+        { name: "Michael Chen", role: "Pet sitter", rating: 5.0, price: 30 },
+        { name: "Jessica Davis", role: "Vet tech", rating: 4.8, price: 35 },
+        { name: "David Wilson", role: "Groomer", rating: 4.9, price: 28 }
     ];
 
-    let currentUser = JSON.parse(localStorage.getItem('petra_user'));
     let selectedSitter = "";
 
-    // --- UI Functions ---
     function renderSitters() {
         const grid = document.getElementById('sittersGrid');
         grid.innerHTML = sitters.map(s => `
             <div class="sitter-card">
-                <div class="sitter-photo"><img src="${s.img}" alt="${s.name}"></div>
-                <div class="sitter-info">
-                    <strong>${s.name}</strong>
-                    <div style="font-size: 13px; color: gray;">${s.role}</div>
-                    <span class="stars">★ ${s.rating}</span>
-                    <div class="sitter-price">$${s.price} / hour</div>
-                    <button class="book-sitter-btn" onclick="openBookingModal('${s.name}')">Book Now</button>
-                </div>
+                <h3>${s.name}</h3>
+                <p>${s.role}</p>
+                <div style="color: #ffb400;">★ ${s.rating}</div>
+                <p><strong>$${s.price} / hour</strong></p>
+                <button class="book-btn" onclick="openBooking('${s.name}')">Book Now</button>
             </div>
         `).join('');
     }
 
-    function updateAuthUI() {
-        if (currentUser) {
-            document.getElementById('authSection').style.display = 'none';
-            document.getElementById('userSection').style.display = 'flex';
-            document.getElementById('userDisplayName').innerText = currentUser.name;
-        } else {
-            document.getElementById('authSection').style.display = 'flex';
-            document.getElementById('userSection').style.display = 'none';
-        }
-    }
-
-    // --- Modal Logic ---
-    function openAuthModal(type) {
-        document.getElementById('authModal').style.display = 'flex';
-        document.getElementById('loginForm').classList.toggle('active', type === 'login');
-        document.getElementById('signupForm').classList.toggle('active', type === 'signup');
-    }
-
-    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
-
-    function openBookingModal(name) {
+    function openBooking(name) {
         selectedSitter = name;
-        document.getElementById('modalSitterName').innerText = "Sitter: " + name;
+        document.getElementById('modalSitterName').innerText = "Booking with " + name;
         document.getElementById('bookingModal').style.display = 'flex';
-        if(currentUser) document.getElementById('userFullName').value = currentUser.name;
     }
 
-    function closeBookingModal() { document.getElementById('bookingModal').style.display = 'none'; }
+    function closeModal() {
+        document.getElementById('bookingModal').style.display = 'none';
+    }
 
-    // --- Actions ---
-    function login() {
-        const name = document.getElementById('signupName').value || "Pet Lover";
-        currentUser = { name: name };
-        localStorage.setItem('petra_user', JSON.stringify(currentUser));
-        updateAuthUI();
-        closeAuthModal();
+    function confirmBooking() {
+        alert("Success! Your session with " + selectedSitter + " has been scheduled.");
+        closeModal();
     }
 
     function logout() {
-        localStorage.removeItem('petra_user');
-        currentUser = null;
-        updateAuthUI();
+        alert("Logging out...");
+        window.location.reload();
     }
 
-    async function confirmBooking() {
-        const data = {
-            sitter: selectedSitter,
-            name: document.getElementById('userFullName').value,
-            date: document.getElementById('bookingDate').value
-        };
-
-        if(!data.name || !data.date) return alert("Please fill in your name and date!");
-
-        try {
-            const res = await fetch('/api/bookings', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            if(res.ok) {
-                alert("🐾 Success! Booking confirmed for " + selectedSitter);
-                closeBookingModal();
-            }
-        } catch (e) {
-            alert("Local mode: Booking simulated successfully!");
-            closeBookingModal();
-        }
-    }
-
-    // Init
-    window.onload = () => {
-        renderSitters();
-        updateAuthUI();
-    };
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', renderSitters);
 </script>
 
 </body>
