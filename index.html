@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PETRA | The Rock-Solid Pet Ecosystem</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        :root {
+            --bg: #fefcf3;
+            --text: #2c2b28;
+            --card: #ffffff;
+            --primary: #b86f52;
+            --secondary: #6c9ebf;
+            --accent: #e3b23c;
+            --rock: #a39489;
+            --shadow: 0 20px 35px -10px rgba(0,0,0,0.1);
+        }
+
+        body.dark {
+            --bg: #1e1c19;
+            --text: #f0ede8;
+            --card: #2a2824;
+            --primary: #d48d6a;
+            --secondary: #7db0d1;
+            --shadow: 0 20px 35px -10px rgba(0,0,0,0.5);
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Animated Rock Texture Background */
+        .rock-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--rock) 100%);
+            opacity: 0.15;
+        }
+
+        .rock-bg::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.3"><path fill="none" stroke="%23999999" stroke-width="0.5" d="M20,20 L30,15 L40,22 L35,32 L25,30 Z M60,50 L75,45 L80,60 L65,65 Z M45,70 L55,68 L58,78 L48,80 Z M10,60 L18,55 L22,65 L12,68 Z M85,15 L92,12 L95,20 L88,23 Z"/></svg>');
+            background-repeat: repeat;
+            background-size: 60px;
+            opacity: 0.3;
+            animation: shift 40s linear infinite;
+        }
+
+        @keyframes shift {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(30, 28, 25, 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .tagline {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            letter-spacing: 2px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            margin: 0 1.2rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--card);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            color: var(--text);
+            font-size: 1.1rem;
+            font-weight: bold;
+            box-shadow: var(--shadow);
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 5rem 2rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .hero .rock-emblem {
+            font-size: 3rem;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 650px;
+            margin: 0 auto 2rem;
+            opacity: 0.85;
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2.2rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 15px rgba(184, 111, 82, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(184, 111, 82, 0.6);
+        }
+
+        /* Real-time clock */
+        .clock-container {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .clock {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 0.8rem 1.8rem;
+            background: var(--card);
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow);
+            font-family: monospace;
+        }
+
+        /* Stats counter */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem auto;
+            flex-wrap: wrap;
+        }
+        .stat {
+            text-align: center;
+            background: var(--card);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            min-width: 140px;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* Pet Grid */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 3rem 0 1rem;
+            font-weight: 700;
+        }
+        .pets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 2rem;
+            padding: 2rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pet-card {
+            background: var(--card);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transform: translateY(0);
+            transition: all 0.35s;
+            cursor: pointer;
+            border: 1px solid rgba(184, 111, 82, 0.2);
+        }
+
+        .pet-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 45px -15px rgba(0,0,0,0.3);
+            border-color: var(--primary);
+        }
+
+        .pet-image {
+            height: 210px;
+            background: linear-gradient(145deg, var(--primary), var(--rock));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+        }
+        .pet-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: gold;
+            color: #1e1c19;
+            padding: 0.3rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        .pet-info {
+            padding: 1.5rem;
+        }
+        .pet-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .pet-desc {
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+        .book-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 40px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 2rem;
+            padding: 3rem 5%;
+            background: rgba(108, 158, 191, 0.08);
+            margin-top: 3rem;
+        }
+        .feature {
+            text-align: center;
+            padding: 1.8rem;
+            border-radius: 28px;
+            background: var(--card);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: var(--bg);
+            padding: 2rem;
+            border-radius: 32px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid var(--primary);
+        }
+        .modal input, .modal select {
+            width: 100%;
+            padding: 0.9rem;
+            margin: 0.6rem 0;
+            border: 1px solid var(--primary);
+            border-radius: 60px;
+            background: var(--card);
+            color: var(--text);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            background: var(--card);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .stats { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="rock-bg"></div>
+
+    <nav>
+        <div>
+            <div class="logo">🪨 <span>PETRA</span></div>
+            <div class="tagline">rock-solid pet love</div>
+        </div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Pets</a>
+            <a href="#">PetraCare</a>
+            <a href="#">Community</a>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+    </nav>
+
+    <div class="hero">
+        <div class="rock-emblem">🪨🐾</div>
+        <h1>Welcome to <span style="color: var(--primary);">PETRA</span></h1>
+        <p>Ancient strength. Modern pet care. Unshakable love for your fur family.</p>
+        <button class="cta-button" onclick="scrollToPets()">⚡ Discover Petra Pets</button>
+    </div>
+
+    <div class="clock-container">
+        <div class="clock">
+            🕒 <span id="liveClock"></span>
+        </div>
+    </div>
+
+    <div class="stats" id="statsSection">
+        <div class="stat"><div class="stat-number" id="petCount">0</div><div>Happy Pets</div></div>
+        <div class="stat"><div class="stat-number" id="bookingCount">0</div><div>Bookings Today</div></div>
+        <div class="stat"><div class="stat-number" id="citiesCount">0</div><div>Petra Cities</div></div>
+    </div>
+
+    <h2 class="section-title">🐕‍🦺 Petra's Finest</h2>
+    <div class="pets-grid" id="petsGrid"></div>
+
+    <div class="features">
+        <div class="feature"><div class="feature-icon">🪨</div><h3>Rock-Solid Health</h3><p>Vet-approved plans</p></div>
+        <div class="feature"><div class="feature-icon">🏛️</div><h3>Ancient Wisdom</h3><p>Centuries of pet care knowledge</p></div>
+        <div class="feature"><div class="feature-icon">🌋</div><h3>Eruption Alerts</h3><p>Real-time safety for adventurers</p></div>
+        <div class="feature"><div class="feature-icon">💎</div><h3>Gem Rewards</h3><p>Earn Petra gems with every booking</p></div>
+    </div>
+
+    <footer>
+        <p>🪨 PETRA — Built on rock, powered by love. Not just a pet platform — a legacy. © 2026</p>
+        <p style="margin-top: 10px; font-size: 0.8rem;">✨ Live on Vercel | Real-time production</p>
+    </footer>
+
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <h2>📿 Book a Petra Experience</h2>
+            <p id="modalPetName" style="color: var(--primary);"></p>
+            <input type="text" id="userName" placeholder="Your name" autocomplete="off">
+            <input type="date" id="bookingDate">
+            <select id="serviceType">
+                <option>🐾 Ancient Walk (45 min)</option>
+                <option>🪨 Stone Grooming (1 hr)</option>
+                <option>🏛️ Temple Daycare (full day)</option>
+            </select>
+            <button class="cta-button" onclick="confirmBooking()">Confirm on Petra</button>
+            <button onclick="closeModal()" style="margin-top: 12px; background: gray; border: none; padding: 0.6rem; border-radius: 60px; cursor: pointer;">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Real-time clock
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('liveClock').innerHTML = now.toLocaleString('en-US', { 
+                hour: '2-digit', minute: '2-digit', second: '2-digit',
+                weekday: 'short', month: 'short', day: 'numeric'
+            });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Animated stats counter
+        function animateCounter(element, target, duration = 1500) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const update = () => {
+                start += increment;
+                if (start < target) {
+                    element.innerText = Math.floor(start);
+                    requestAnimationFrame(update);
+                } else {
+                    element.innerText = target;
+                }
+            };
+            update();
+        }
+
+        // Pet data
+        const pets = [
+            { name: "Rocky the Ridgeback", emoji: "🦴", desc: "2.1M followers | Boulder-sized heart", price: "55 Petra Gems", badge: "Legendary" },
+            { name: "Gemma the Geodog", emoji: "💎", desc: "Crystal healer | Therapy certified", price: "70 Gems", badge: "Healer" },
+            { name: "Basalt the Brave", emoji: "🗿", desc: "Tiny body, massive courage", price: "45 Gems", badge: "Brave" },
+            { name: "Onyx the Oracle", emoji: "🔮", desc: "Predicts treat time | 99% accurate", price: "88 Gems", badge: "Mystic" }
+        ];
+
+        function renderPets() {
+            const grid = document.getElementById('petsGrid');
+            grid.innerHTML = pets.map(pet => `
+                <div class="pet-card">
+                    <div class="pet-image">
+                        ${pet.emoji}
+                        <div class="pet-badge">${pet.badge}</div>
+                    </div>
+                    <div class="pet-info">
+                        <div class="pet-name">${pet.name}</div>
+                        <div class="pet-desc">${pet.desc}</div>
+                        <div class="pet-desc">💰 ${pet.price}</div>
+                        <button class="book-btn" onclick="openBooking('${pet.name}')">📿 Book on Petra</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        renderPets();
+
+        let currentPet = '';
+        let totalBookings = 0;
+
+        function openBooking(petName) {
+            currentPet = petName;
+            document.getElementById('modalPetName').innerHTML = `<strong>${petName}</strong>`;
+            document.getElementById('bookingModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+
+        function confirmBooking() {
+            const name = document.getElementById('userName').value;
+            const date = document.getElementById('bookingDate').value;
+            if (!name || !date) {
+                alert('Please enter your name and date.');
+                return;
+            }
+            totalBookings++;
+            document.getElementById('bookingCount').innerText = totalBookings;
+            alert(`🪨 PETRA CONFIRMATION\n\n${name}, your session with ${currentPet} is set for ${date}. You've earned 10 bonus Petra Gems! ⛏️`);
+            closeModal();
+            document.getElementById('userName').value = '';
+            document.getElementById('bookingDate').value = '';
+        }
+
+        function scrollToPets() {
+            document.querySelector('.pets-grid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            const btn = document.querySelector('.theme-toggle');
+            btn.textContent = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark';
+        }
+
+        // Load stats animation
+        animateCounter(document.getElementById('petCount'), 1247, 1600);
+        animateCounter(document.getElementById('bookingCount'), 89, 1200);
+        animateCounter(document.getElementById('citiesCount'), 32, 1000);
+    </script>
+</body>
+</html>
