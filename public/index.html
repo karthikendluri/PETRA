@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional pet care services. Dog walking, pet sitting, grooming, and daycare. Trusted by 10,000+ pet parents since 2019.">
+    <title>PETRA | Professional Pet Care Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #b86f52;
+            --primary-dark: #9a5a40;
+            --secondary: #6c9ebf;
+            --text: #222222;
+            --text-light: #717171;
+            --bg: #ffffff;
+            --bg-gray: #f7f7f7;
+            --border: #dddddd;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.5;
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Header */
+        .site-header {
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .logo .petra {
+            color: var(--primary);
+        }
+
+        .logo .rock {
+            color: var(--text);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 1px solid var(--border);
+            padding: 10px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn-login:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-signup {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn-signup:hover {
+            background: var(--primary-dark);
+        }
+
+        /* User menu after login */
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .user-name {
+            font-weight: 500;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #b86f5208 0%, #6c9ebf08 100%);
+            padding: 60px 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 24px;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        /* Search Bar */
+        .search-section {
+            margin-top: -40px;
+            margin-bottom: 60px;
+        }
+
+        .search-card {
+            background: var(--bg);
+            border-radius: 32px;
+            box-shadow: var(--shadow-hover);
+            padding: 32px;
+            border: 1px solid var(--border);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 16px;
+        }
+
+        .search-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Stats */
+        .stats-section {
+            padding: 60px 0;
+            background: var(--bg-gray);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* Services */
+        .services-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 48px;
+            font-size: 18px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* Pet Sitters */
+        .sitters-section {
+            padding: 60px 0;
+            background: var(--bg-gray);
+        }
+
+        .sitters-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .sitter-card {
+            background: var(--bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .sitter-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .sitter-photo img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .sitter-info {
+            padding: 20px;
+        }
+
+        .sitter-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .sitter-title {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        .sitter-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .stars {
+            color: #ffb400;
+            letter-spacing: 2px;
+        }
+
+        .sitter-price {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .book-sitter-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .book-sitter-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 60px 0;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            background: var(--primary);
+            color: white;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        /* Auth Modal (Login/Signup) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--bg);
+            border-radius: 24px;
+            max-width: 450px;
+            width: 90%;
+            padding: 32px;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 16px;
+            margin: 24px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .auth-tab {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 15px;
+        }
+
+        .auth-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+
+        .auth-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        /* Booking Modal */
+        .booking-modal-content {
+            max-width: 500px;
+        }
+
+        .booking-modal-content input,
+        .booking-modal-content select,
+        .booking-modal-content textarea {
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 15px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-gray);
+            padding: 48px 0 24px;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 16px;
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--text-light);
+            text-decoration: none;
+            margin-bottom: 12px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .footer-col a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        @media (max-width: 1024px) {
+            .services-grid,
+            .sitters-grid,
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 16px;
+            }
+            .services-grid,
+            .sitters-grid,
+            .stats-grid,
+            .steps-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <span class="petra">PETRA</span><span class="rock">🪨</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#">Find sitters</a>
+                <a href="#">Become a sitter</a>
+                <a href="#">Services</a>
+                <a href="#">Support</a>
+                <div id="authSection">
+                    <button class="btn-login" onclick="openAuthModal('login')">Log in</button>
+                    <button class="btn-signup" onclick="openAuthModal('signup')">Sign up</button>
+                </div>
+                <div id="userSection" style="display: none;" class="user-menu">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <span class="user-name" id="userDisplayName"></span>
+                    <button class="logout-btn" onclick="logout()">Log out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <h1>Loving pet care <br>when <span>you're away</span></h1>
+                    <p>Connect with trusted pet sitters in your neighborhood. Dog walking, pet sitting, grooming, and more — all backed by our Petra Guarantee.</p>
+                    <button class="btn-signup" style="padding: 14px 32px; font-size: 16px;" onclick="openAuthModal('signup')">Find a sitter →</button>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600&h=400&fit=crop" alt="Happy dog">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-card">
+                <div class="search-form">
+                    <div class="form-group">
+                        <label>📍 Location</label>
+                        <input type="text" id="searchLocation" placeholder="Enter city or zip code" value="Austin, TX">
+                    </div>
+                    <div class="form-group">
+                        <label>📅 Dates</label>
+                        <input type="text" id="searchDates" placeholder="Select dates" value="Mar 20 - Mar 25">
+                    </div>
+                    <button class="search-btn" onclick="searchSitters()">Search</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div>
+                    <div class="stat-number" id="statSitters">0</div>
+                    <div class="stat-label">Trusted sitters</div>
+                </div>
+                <div>
+                    <div class="stat-number" id="statBookings">0</div>
+                    <div class="stat-label">Bookings completed</div>
+                </div>
+                <div>
+                    <div class="stat-number" id="statPets">0</div>
+                    <div class="stat-label">Happy pets</div>
+                </div>
+                <div>
+                    <div class="stat-number" id="statCities">0</div>
+                    <div class="stat-label">Cities nationwide</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title">Services for every pet</h2>
+            <p class="section-subtitle">From daily walks to overnight stays — we've got you covered</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🐕</div>
+                    <h3>Dog Walking</h3>
+                    <p>30-min or 60-min walks with real-time updates</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏠</div>
+                    <h3>Pet Sitting</h3>
+                    <p>In-home care while you're away</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✂️</div>
+                    <h3>Grooming</h3>
+                    <p>Bath, brush, nail trim, and more</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏥</div>
+                    <h3>Vet Visits</h3>
+                    <p>Transportation to vet appointments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pet Sitters -->
+    <section class="sitters-section">
+        <div class="container">
+            <h2 class="section-title">Top-rated sitters near you</h2>
+            <p class="section-subtitle">Verified, background-checked, and loved by pet parents</p>
+            <div class="sitters-grid" id="sittersGrid"></div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How Petra works</h2>
+            <p class="section-subtitle">Three simple steps to stress-free pet care</p>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Search</h3>
+                    <p>Enter your dates and find trusted sitters near you</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Book & pay</h3>
+                    <p>Securely book and pay through our platform</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Relax</h3>
+                    <p>Get photo updates while you're away</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Petra</h4>
+                <a href="#">About us</a>
+                <a href="#">Careers</a>
+                <a href="#">Press</a>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <a href="#">Dog walking</a>
+                <a href="#">Pet sitting</a>
+                <a href="#">Grooming</a>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="#">Help center</a>
+                <a href="#">Safety</a>
+                <a href="#">Contact us</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="#">Privacy policy</a>
+                <a href="#">Terms of service</a>
+                <a href="#">Petra Guarantee</a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2026 PETRA Pet Care, Inc. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+<!-- Auth Modal (Login/Signup) -->
+<div id="authModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+        <h2>Welcome to PETRA</h2>
+        <div class="auth-tabs">
+            <button class="auth-tab active" onclick="switchAuthTab('login')">Log in</button>
+            <button class="auth-tab" onclick="switchAuthTab('signup')">Sign up</button>
+        </div>
+        
+        <!-- Login Form -->
+        <div id="loginForm" class="auth-form active">
+            <input type="email" id="loginEmail" placeholder="Email address">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button class="auth-btn" onclick="login()">Log in</button>
+        </div>
+        
+        <!-- Signup Form -->
+        <div id="signupForm" class="auth-form">
+            <input type="text" id="signupName" placeholder="Full name">
+            <input type="email" id="signupEmail" placeholder="Email address">
+            <input type="password" id="signupPassword" placeholder="Password (min 6 characters)">
+            <button class="auth-btn" onclick="signup()">Create account</button>
+        </div>
+    </div>
+</div>
+
+<!-- Booking Modal -->
+<div id="bookingModal" class="modal">
+    <div class="modal-content booking-modal-content">
+        <span class="close-modal" onclick="closeBookingModal()">&times;</span>
+        <h2>Book a sitting</h2>
+        <p id="modalSitterName" style="color: var(--primary); margin-bottom: 16px;"></p>
+        <input type="text" id="userFullName" placeholder="Full name">
+        <input type="email" id="userEmail" placeholder="Email address">
+        <input type="tel" id="userPhone" placeholder="Phone number">
+        <input type="date" id="bookingStartDate">
+        <input type="date" id="bookingEndDate">
+        <select id="bookingService">
+            <option value="dog-walking">Dog walking ($25/session)</option>
+            <option value="pet-sitting">Pet sitting ($45/day)</option>
+            <option value="overnight">Overnight stay ($75/night)</option>
+        </select>
+        <textarea id="specialInstructions" rows="2" placeholder="Special instructions (optional)"></textarea>
+        <div class="modal-buttons">
+            <button class="confirm-btn" style="background: var(--primary); color: white; border: none; padding: 14px; border-radius: 12px;" onclick="confirmBooking()">Confirm booking</button>
+            <button class="cancel-btn" style="background: transparent; border: 1px solid var(--border); padding: 14px; border-radius: 12px;" onclick="closeBookingModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ============ AUTHENTICATION SYSTEM ============
+    
+    // Check if user is logged in on page load
+    let currentUser = JSON.parse(localStorage.getItem('petra_current_user') || 'null');
+    
+    function updateUIForUser() {
+        if (currentUser) {
+            document.getElementById('authSection').style.display = 'none';
+            document.getElementById('userSection').style.display = 'flex';
+            document.getElementById('userDisplayName').innerText = currentUser.name;
+            // Get first letter of first name for avatar
+            const initial = currentUser.name.charAt(0).toUpperCase();
+            document.getElementById('userAvatar').innerText = initial;
+        } else {
+            document.getElementById('authSection').style.display = 'flex';
+            document.getElementById('userSection').style.display = 'none';
+        }
+    }
+    
+    function openAuthModal(type = 'login') {
+        document.getElementById('authModal').style.display = 'flex';
+        switchAuthTab(type);
+    }
+    
+    function closeAuthModal() {
+        document.getElementById('authModal').style.display = 'none';
+        // Clear form fields
+        document.getElementById('loginEmail').value = '';
+        document.getElementById('loginPassword').value = '';
+        document.getElementById('signupName').value = '';
+        document.getElementById('signupEmail').value = '';
+        document.getElementById('signupPassword').value = '';
+    }
+    
+    function switchAuthTab(tab) {
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const tabs = document.querySelectorAll('.auth-tab');
+        
+        tabs.forEach(t => t.classList.remove('active'));
+        
+        if (tab === 'login') {
+            loginForm.classList.add('active');
+            signupForm.classList.remove('active');
+            tabs[0].classList.add('active');
+        } else {
+            loginForm.classList.remove('active');
+            signupForm.classList.add('active');
+            tabs[1].classList.add('active');
+        }
+    }
+    
+    function login() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        
+        if (!email || !password) {
+            alert('Please enter both email and password.');
+            return;
+        }
+        
+        // Get users from localStorage
+        const users = JSON.parse(localStorage.getItem('petra_users') || '[]');
+        const user = users.find(u => u.email === email && u.password === password);
+        
+        if (user) {
+            currentUser = { id: user.id, name: user.name, email: user.email };
+            localStorage.setItem('petra_current_user', JSON.stringify(currentUser));
+            updateUIForUser();
+            closeAuthModal();
+            alert(`Welcome back, ${user.name}! 🐾`);
+        } else {
+            alert('Invalid email or password. Please try again or create an account.');
+        }
+    }
+    
+    function signup() {
+        const name = document.getElementById('signupName').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        
+        if (!name || !email || !password) {
+            alert('Please fill in all fields.');
+            return;
+        }
+        
+        if (password.length < 6) {
+            alert('Password must be at least 6 characters.');
+            return;
+        }
+        
+        // Get existing users
+        const users = JSON.parse(localStorage.getItem('petra_users') || '[]');
+        
+        // Check if email already exists
+        if (users.some(u => u.email === email)) {
+            alert('An account with this email already exists. Please log in.');
+            return;
+        }
+        
+        // Create new user
+        const newUser = {
+            id: Date.now(),
+            name: name,
+            email: email,
+            password: password,
+            createdAt: new Date().toISOString()
+        };
+        
+        users.push(newUser);
+        localStorage.setItem('petra_users', JSON.stringify(users));
+        
+        // Auto-login after signup
+        currentUser = { id: newUser.id, name: newUser.name, email: newUser.email };
+        localStorage.setItem('petra_current_user', JSON.stringify(currentUser));
+        updateUIForUser();
+        closeAuthModal();
+        alert(`Welcome to PETRA, ${name}! 🎉 Your account has been created.`);
+    }
+    
+    function logout() {
+        localStorage.removeItem('petra_current_user');
+        currentUser = null;
+        updateUIForUser();
+        alert('You have been logged out.');
+    }
+    
+    // ============ SITTERS DATA ============
+    
+    const sitters = [
+        { name: "Sarah Johnson", role: "Dog walker & pet sitter", rating: 4.9, reviews: 127, price: 25, img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=220&fit=crop", years: 5 },
+        { name: "Michael Chen", role: "Certified pet sitter", rating: 5.0, reviews: 89, price: 30, img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=220&fit=crop", years: 3 },
+        { name: "Jessica Davis", role: "Former vet tech", rating: 4.8, reviews: 203, price: 35, img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=220&fit=crop", years: 7 },
+        { name: "David Wilson", role: "Pet groomer & sitter", rating: 4.9, reviews: 156, price: 28, img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=220&fit=crop", years: 4 }
+    ];
+    
+    function renderSitters() {
+        const grid = document.getElementById('sittersGrid');
+        grid.innerHTML = sitters.map(sitter => `
+            <div class="sitter-card">
+                <div class="sitter-photo">
+                    <img src="${sitter.img}" alt="${sitter.name}">
+                </div>
+                <div class="sitter-info">
+                    <div class="sitter-name">${sitter.name}</div>
+                    <div class="sitter-title">${sitter.role}</div>
+                    <div class="sitter-rating">
+                        <span class="stars">★ ${sitter.rating}</span>
+                        <span style="color: var(--text-light);">(${sitter.reviews} reviews)</span>
+                    </div>
+                    <div class="sitter-price">$${sitter.price} / hour</div>
+                    <button class="book-sitter-btn" onclick="openBookingModal('${sitter.name}')">Book ${sitter.name.split(' ')[0]}</button>
+                </div>
+            </div>
+        `).join('');
+    }
+    renderSitters();
+    
+    // ============ ANIMATED COUNTERS ============
+    
+    function animateCounter(element, target, duration = 1500) {
+        let start = 0;
+        const increment = target / (duration / 16);
+        const timer = setInterval(() => {
+            start += increment;
+            if (start >= target) {
+                element.innerText = target.toLocaleString();
+                clearInterval(timer);
+            } else {
+                element.innerText = Math.floor(start).toLocaleString();
+            }
+        }, 16);
+    }
+    
+    animateCounter(document.getElementById('statSitters'), 15280);
+    animateCounter(document.getElementById('statBookings'), 1250000);
+    animateCounter(document.getElementById('statPets'), 987000);
+    animateCounter(document.getElementById('statCities'), 285);
+    
+    // ============ BOOKING FUNCTIONS ============
+    
+    let currentSitter = '';
+    
+    function openBookingModal(sitterName) {
+        if (!currentUser) {
+            alert('Please log in or create an account to book a sitter.');
+            openAuthModal('login');
+            return;
+        }
+        
+        currentSitter = sitterName;
+        document.getElementById('modalSitterName').innerHTML = `<strong>${sitterName}</strong>`;
+        
+        // Pre-fill user info if logged in
+        document.getElementById('userFullName').value = currentUser.name;
+        document.getElementById('userEmail').value = currentUser.email;
+        
+        document.getElementById('bookingModal').style.display = 'flex';
+    }
+    
+    function closeBookingModal() {
+        document.getElementById('bookingModal').style.display = 'none';
+        document.getElementById('userFullName').value = '';
+        document.getElementById('userEmail').value = '';
+        document.getElementById('userPhone').value = '';
+        document.getElementById('bookingStartDate').value = '';
+        document.getElementById('bookingEndDate').value = '';
+        document.getElementById('specialInstructions').value = '';
+    }
+    
+    function confirmBooking() {
+        const name = document.getElementById('userFullName').value.trim();
+        const email = document.getElementById('userEmail').value.trim();
+        const phone = document.getElementById('userPhone').value.trim();
+        const startDate = document.getElementById('bookingStartDate').value;
+        const endDate = document.getElementById('bookingEndDate').value;
+        const service = document.getElementById('bookingService').options[document.getElementById('bookingService').selectedIndex].text;
+        
+        if (!name) { alert("Please enter your full name."); return; }
+        if (!email) { alert("Please enter your email address."); return; }
+        if (!email.includes('@')) { alert("Please enter a valid email address."); return; }
+        if (!phone) { alert("Please enter your phone number."); return; }
+        if (!startDate) { alert("Please select a start date."); return; }
+        if (!endDate) { alert("Please select an end date."); return; }
+        
+        // Save to localStorage
+        const booking = {
+            id: Date.now(),
+            sitter: currentSitter,
+            customerName: name,
+            customerEmail: email,
+            customerPhone: phone,
+            startDate: startDate,
+            endDate: endDate,
+            service: service,
+            instructions: document.getElementById('specialInstructions').value,
+            bookedAt: new Date().toISOString()
+        };
+        
+        let bookings = JSON.parse(localStorage.getItem('
