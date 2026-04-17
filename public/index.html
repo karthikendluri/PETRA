@@ -76,8 +76,7 @@
         /* Cards */
         .sitters-section { padding: 80px 0; }
         .section-title { font-size: 32px; text-align: center; margin-bottom: 10px; }
-        .section-subtitle { text-align: center; color: var(--text-light); margin-bottom: 40px; }
-        .sitters-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        .sitters-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-top: 40px;}
         .sitter-card { border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: transform 0.3s; background: white; }
         .sitter-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
         .sitter-photo img { width: 100%; height: 220px; object-fit: cover; }
@@ -94,10 +93,7 @@
         .user-menu { display: flex; align-items: center; gap: 12px; }
         .user-avatar { width: 35px; height: 35px; background: var(--primary); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
         
-        /* Marketplace */
-        .marketplace-section { background: var(--bg-gray); padding: 80px 0; }
-
-        /* Spinner */
+        /* Loading Spinner */
         .spinner { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
@@ -112,7 +108,7 @@
             <a href="#" class="logo"><span class="petra">PETRA</span><span>🪨</span></a>
             <nav class="nav-links">
                 <a href="#sitters-anchor">Find sitters</a>
-                <a href="#marketplace">Sitter Gear</a>
+                <a href="#hero-anchor">About</a>
                 <div id="authSection">
                     <button class="btn-login" onclick="openAuthModal('login')">Log in</button>
                     <button class="btn-signup" onclick="openAuthModal('signup')">Sign up</button>
@@ -133,8 +129,8 @@
             <div class="hero-grid">
                 <div>
                     <h1>Loving pet care <br>when <span>you're away</span></h1>
-                    <p>Search real-time listings for verified local sitters. Your pets deserve the best professional care.</p>
-                    <a href="#sitters-anchor" class="btn-signup" style="text-decoration: none; display: inline-block;">Browse Live Sitters →</a>
+                    <p>Connect with trusted pet sitters in your neighborhood. Your pets deserve the best care.</p>
+                    <a href="#sitters-anchor" class="btn-signup" style="text-decoration: none; display: inline-block;">Browse Sitters →</a>
                 </div>
                 <div class="hero-image">
                     <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=800" alt="Happy dog">
@@ -149,11 +145,11 @@
                 <div class="search-form">
                     <div class="form-group">
                         <label>📍 Location</label>
-                        <input type="text" id="locationInput" placeholder="Enter city or zip (e.g. Austin)">
+                        <input type="text" id="locationInput" placeholder="Enter city (e.g. Austin, TX)">
                     </div>
                     <div class="form-group">
                         <label>📅 Service Type</label>
-                        <input type="text" id="serviceInput" placeholder="dog-walking, pet-sitting...">
+                        <input type="text" id="serviceInput" placeholder="dog-walking, boarding...">
                     </div>
                     <button class="btn-signup" style="padding: 15px 40px;" onclick="handleSearch()">Search Live</button>
                 </div>
@@ -163,35 +159,9 @@
 
     <section class="sitters-section" id="sitters-anchor">
         <div class="container">
-            <h2 class="section-title">Verified Sitters</h2>
-            <p class="section-subtitle" id="statusMsg">Top pros available in your neighborhood</p>
+            <h2 class="section-title" id="statusHeader">Verified Sitters</h2>
             <div class="sitters-grid" id="sittersGrid">
                 </div>
-        </div>
-    </section>
-
-    <section class="marketplace-section" id="marketplace">
-        <div class="container">
-            <h2 class="section-title">Professional Care Marketplace</h2>
-            <p class="section-subtitle">Gear up for your next pet care appointment.</p>
-            <div class="sitters-grid">
-                <div class="sitter-card">
-                    <div class="sitter-photo"><img src="https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=400" alt="Leash"></div>
-                    <div class="sitter-info">
-                        <h3>Hands-Free Walking</h3>
-                        <p style="color:gray; font-size:14px;">Professional Grade Leashes</p>
-                        <button class="btn-signup" style="width:100%; margin-top:10px;">View Collection</button>
-                    </div>
-                </div>
-                <div class="sitter-card">
-                    <div class="sitter-photo"><img src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=400" alt="GPS"></div>
-                    <div class="sitter-info">
-                        <h3>Safety & Tracking</h3>
-                        <p style="color:gray; font-size:14px;">GPS Trackers & Reflective Vests</p>
-                        <button class="btn-signup" style="width:100%; margin-top:10px;">Shop Safety</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 </main>
@@ -222,18 +192,18 @@
     const APIFY_TOKEN = 'apify_api_ejTEau4mggYE7XQLL0I4w7YVlcvB9V491siY';
     let currentUser = JSON.parse(localStorage.getItem('petra_user'));
 
+    // Updated handleSearch to use Apify Rover Scraper
     async function handleSearch() {
         const loc = document.getElementById('locationInput').value;
         const serv = document.getElementById('serviceInput').value || 'dog-walking';
         const grid = document.getElementById('sittersGrid');
-        const status = document.getElementById('statusMsg');
+        const header = document.getElementById('statusHeader');
 
-        if(!loc) return alert("Please enter a location to search real-time data.");
+        if(!loc) return alert("Please enter a location (e.g. Austin, TX)");
 
-        // Show loading state
-        status.innerText = `Sniffing out the best sitters in ${loc}...`;
-        grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center;"><div class="spinner"></div></div>';
-        
+        // UI Feedback: Loading
+        header.innerText = `Searching Rover for sitters in ${loc}...`;
+        grid.innerHTML = '<div style="grid-column: 1/-1;"><div class="spinner"></div></div>';
         document.getElementById('sitters-anchor').scrollIntoView();
 
         try {
@@ -250,19 +220,21 @@
             const results = await response.json();
 
             if (!results || results.length === 0) {
-                status.innerText = "No sitters found. Try a different city or service.";
+                header.innerText = "No sitters found. Try a broader city name.";
                 grid.innerHTML = "";
                 return;
             }
 
-            status.innerText = `Found ${results.length} verified sitters in ${loc}`;
+            header.innerText = `Top-rated sitters in ${loc}`;
             grid.innerHTML = results.map(s => `
                 <div class="sitter-card">
-                    <div class="sitter-photo"><img src="${s.profilePhoto || 'https://via.placeholder.com/400'}" alt="${s.name}"></div>
+                    <div class="sitter-photo">
+                        <img src="${s.profilePhoto || 'https://via.placeholder.com/400x220'}" alt="${s.name}">
+                    </div>
                     <div class="sitter-info">
                         <h3>${s.name}</h3>
-                        <p style="color:gray; font-size:14px;">${s.tagline || 'Verified Pet Professional'}</p>
-                        <div style="color:#ffb400; margin-top:5px;">★ ${s.rating || '5.0'} (${s.reviewsCount || 0})</div>
+                        <p style="color:gray; font-size:14px; height: 40px; overflow: hidden;">${s.tagline || 'Verified Pet Professional'}</p>
+                        <div style="color: #ffb400; margin-top: 5px;">★ ${s.rating || '5.0'} (${s.reviewsCount || 0})</div>
                         <p class="sitter-price">$${s.price || '25'}/hr</p>
                         <button class="btn-signup" style="width:100%" onclick="window.open('${s.url}', '_blank')">View Profile</button>
                     </div>
@@ -271,12 +243,12 @@
 
         } catch (error) {
             console.error("API Error:", error);
-            status.innerText = "Unable to fetch live data. Please check your API token.";
+            header.innerText = "Search failed. Check your API token limits.";
             grid.innerHTML = "";
         }
     }
 
-    // Existing Auth Logic
+    // Auth logic
     function openAuthModal(mode) {
         document.getElementById('authModal').style.display = 'flex';
         document.getElementById('loginForm').classList.toggle('active', mode === 'login');
